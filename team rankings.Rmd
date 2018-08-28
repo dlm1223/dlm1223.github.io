@@ -8,19 +8,34 @@ options(width = 10000)
 ```
 
 ```{r include=F, eval=T , echo=F}
+library(crosstalk)
 library(knitr)
 library(kableExtra)
 library(DT)
 library(dplyr)
 library(webshot)
+library(leaflet)
 #https://rstudio.github.io/DT/functions.html
 
 ```
 
+
+
 ```{r results="asis", echo=F}
-proj<-read.csv("~/NCAA/ncaa-preseason/Team Projections/teamprojections.csv")
+
+
+proj<-read.csv("~/NCAA/ncaa-preseason/Team Projections/teamprojections.csv", stringsAsFactors = F)
+rows<-nrow(proj) #store length, gets screwed up once coverting to SharedData
+
+# Wrap data frame in SharedData
+proj <- SharedData$new(proj)
+
+# Create a filter input
+bscols(widths = 3,
+       filter_select(id="Conf", label="Conference", sharedData = proj, ~Conf, multiple = F)
+)
 proj%>%
-  datatable(rownames = F, options = list(dom = 'ft', ordering=F, pageLength=nrow(proj)),caption = htmltools::tags$caption(
+  datatable(rownames = F, options = list(dom = '', ordering=F, pageLength=rows),caption = htmltools::tags$caption(
     style = 'caption-side: bottom; text-align: left;',
     '2018/19 Predictions."LastKPOMRk" = 17/18 End of Season KenPom Rank'
   ))%>%

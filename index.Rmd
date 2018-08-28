@@ -1,5 +1,3 @@
 ---
 title: "David's Website"
 ---
-
-Hello, World!
