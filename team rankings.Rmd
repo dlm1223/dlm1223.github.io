@@ -1,11 +1,5 @@
----
-title: "2018/19 NCAAB Team Rankings"
----
+</br>
 
-
-```{r set-options, echo=FALSE, cache=FALSE}
-options(width = 10000)
-```
 
 ```{r include=F, eval=T , echo=F}
 library(crosstalk)
@@ -19,6 +13,18 @@ library(leaflet)
 
 ```
 
+```{r set-options, echo=FALSE, cache=FALSE}
+options(width = 10000)
+```
+
+## 2018/19 NCAAB Team Rankings
+
+```{r results="asis", echo=F, }
+#this was a bitch to figure out how to print..
+#https://stackoverflow.com/questions/33179856/how-to-increase-header-font-size-and-remove-square-bracket-from-output
+cat("<h4>",paste0( "Last Updated: ", Sys.time(), " EST"), "</h4>\n")
+```
+---
 
 
 ```{r results="asis", echo=F}
@@ -37,10 +43,12 @@ bscols(widths = 3,
 proj%>%
   datatable(rownames = F, options = list(dom = '', ordering=F, pageLength=rows),caption = htmltools::tags$caption(
     style = 'caption-side: bottom; text-align: left;',
-    '2018/19 Predictions."LastKPOMRk" = 17/18 End of Season KenPom Rank'
+    paste0('2018/19 Predictions."LastKPOMRk" = 17/18 End of Season KenPom Rank')
   ))%>%
   formatStyle( 0, target= 'row',color = 'black', fontSize="110%", lineHeight="75%") %>%
   formatRound(columns = 3, digits =3)
 
 
 ```
+
+
